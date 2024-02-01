@@ -7,6 +7,7 @@
     use Bearlovescode\Bluesky\Models\Service\Configuration;
     use Bearlovescode\Datamodels\Dto\Dto;
     use GuzzleHttp\Client;
+    use GuzzleHttp\Psr7\Request;
     use Psr\Http\Message\ResponseInterface;
 
     abstract class Service
@@ -61,9 +62,8 @@
             if (isset($config->accessToken))
                 $headers['Authorization'] = sprintf('Bearer: %s', $config->accessToken);
 
-            return $this->client->post($nsid, [
-                'headers' => $headers,
-                'json' => $data->toArray()
-            ]);
+            $req = new Request('POST', $nsid, $headers, json_encode($data->toArray()));
+
+            return $this->client->send($req);
         }
     }
