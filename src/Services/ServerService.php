@@ -16,12 +16,12 @@
         {
             $nsid = 'com.atproto.server.createSession';
 
-            $data = new CreateSessionRequest([
+            $req = new CreateSessionRequest([
                 'identifier' => $identifier,
                 'password' => $appPassword
             ]);
 
-            $res = $this->handle($nsid, $data);
+            $res = $this->handle($nsid, $req);
 
             if ($res->getStatusCode() !== 200)
                 throw new ApiResponseException($res->getReasonPhrase(), $res->getStatusCode());
@@ -31,7 +31,8 @@
             return new Session([
                 'accessToken' => new AccessToken($data->accessJwt),
                 'refreshToken' => new RefreshToken($data->refreshJwt),
-                'did' => $data->did
+                'did' => $data->did,
+                'handle' => $data->handle ?? null
             ]);
 
         }

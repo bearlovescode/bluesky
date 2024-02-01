@@ -5,6 +5,7 @@
     use Bearlovescode\Bluesky\Exceptions\BadQueryDataException;
     use Bearlovescode\Bluesky\Models\RequestData;
     use Bearlovescode\Bluesky\Models\Service\Configuration;
+    use Bearlovescode\Bluesky\Models\Session;
     use Bearlovescode\Datamodels\Dto\Dto;
     use GuzzleHttp\Client;
     use GuzzleHttp\Psr7\Request;
@@ -66,6 +67,11 @@
             return $this->client->send($req);
         }
 
+        public function setSession(Session $data): void
+        {
+            $this->config->session = $data;
+        }
+
         private function buildHeaders(): array
         {
             $headers = [
@@ -74,8 +80,8 @@
                 'Accept' => 'application/json'
             ];
 
-            if (isset($config->accessToken))
-                $headers['Authorization'] = sprintf('Bearer: %s', $config->accessToken);
+            if (isset($this->config->session))
+                $headers['Authorization'] = sprintf('Bearer: %s', $this->config->session->accessToken);
 
             return $headers;
 
