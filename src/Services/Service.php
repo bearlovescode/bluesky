@@ -55,24 +55,31 @@
             if (!$nsid || !isset($data))
                 throw new BadQueryDataException();
 
-            $defaultHeaders = [
-                'User-Agent' => 'bearlovescode Bluesky Client/1.0',
-                'Accept' => 'application/json'
-            ];
 
-            $headers = array_merge($defaultHeaders, []);
-            if (isset($config->accessToken))
-                $headers['Authorization'] = sprintf('Bearer: %s', $config->accessToken);
 
             $req = new Request('POST',
                 $this->buildXrpcUrl($nsid),
-                $headers,
+                $this->buildHeaders(),
                 Utils::streamFor(json_encode($data->toArray()))
             );
 
             return $this->client->send($req);
         }
 
+        private function buildHeaders(): array
+        {
+            $headers = [
+                'User-Agent' => 'bearlovescode Bluesky Client/1.0',
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ];
+
+            if (isset($config->accessToken))
+                $headers['Authorization'] = sprintf('Bearer: %s', $config->accessToken);
+
+            return $headers;
+
+        }
         private function buildXrpcUrl(string $nsid): Uri
         {
             return new Uri(sprintf('%s/%s', $this->config->baseUri, $nsid));

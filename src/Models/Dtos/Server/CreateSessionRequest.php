@@ -6,5 +6,5 @@
     class CreateSessionRequest extends Dto
     {
         public string $identifier;
-        public string $appPassword;
+        public string $password;
     }
