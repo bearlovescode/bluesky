@@ -1,0 +1,27 @@
+{
+    "name": "bearlovescode/bluesky",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/bearlovescode/datamodels.git"
+        }
+    ],
+    "require": {
+        "bearlovescode/datamodels": "dev-main",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Bearlovescode\\Bluesky\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nic Barr",
+            "email": "code@bearlovescode.com"
+        }
+    ]
+
+}
