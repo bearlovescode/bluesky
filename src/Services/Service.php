@@ -53,6 +53,7 @@
                 throw new BadQueryDataException();
 
             $defaultHeaders = [
+                'User-Agent' => 'bearlovescode Bluesky Client/1.0',
                 'Accept' => 'application/json'
             ];
 
