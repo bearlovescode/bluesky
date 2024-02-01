@@ -6,6 +6,7 @@
     use Bearlovescode\Bluesky\Models\Service\Configuration;
     use Bearlovescode\Datamodels\Dto\Dto;
     use GuzzleHttp\Client;
+    use Psr\Http\Message\ResponseInterface;
 
     abstract class Service
     {
@@ -28,12 +29,32 @@
             if (!$nsid || !$data)
                 throw new BadQueryDataException();
 
-            $res = $this->client->get($nsid, [
+            return $this->client->get($nsid, [
                 'query' => $data->toArray()
             ]);
         }
 
-        public function handle(string $nsid = '', Dto $data)
+        /**
+         * @param string $nsid
+         * @param Dto $data
+         * @return ResponseInterface
+         * @throws BadQueryDataException
+         * @throws \GuzzleHttp\Exception\GuzzleException
+         */
+        public function handle(string $nsid = '', Dto $data) : ResponseInterface
         {
+            if (!$nsid || !isset($data))
+                throw new BadQueryDataException();
+
+            $defaultHeaders = [
+                'Accept' => 'application/json'
+            ];
+
+            $headers = array_merge($defaultHeaders, []);
+
+            return $this->client->post($nsid, [
+                'headers' => $headers,
+                'json' => $data->toArray()
+            ]);
         }
     }

@@ -4,18 +4,27 @@
     use Bearlovescode\Bluesky\Models\Auth\Credentials;
     use Bearlovescode\Bluesky\Models\RequestData;
 
-    class SessionService
+    class SessionService extends Service
     {
-        public function createSession() : Credentials
+        public function createSession(
+            string $identifier,
+            string $appPassword
+        ) : Credentials
         {
             $nsid = 'com.atproto.server.createSession';
 
             $data = new RequestData([
-                'identifier' => $this->config->identifer,
-                'password' => $this->config->appPassword
+                'identifier' => $identifier,
+                'password' => $appPassword
             ]);
 
-            $res = $this->query($nsid, $data);
+            $res = $this->handle($nsid, $data);
+
+            if ($res->getStatusCode() !== 200)
+            {
+
+            }
+
         }
 
         public function refreshSession()
