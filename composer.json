@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "bearlovescode/datamodels": "dev-main",
+        "bearlovescode/datamodels": "^1.1.0",
         "guzzlehttp/guzzle": "^7.8"
     },
 
