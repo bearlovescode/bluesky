@@ -3,7 +3,7 @@
 
     use Bearlovescode\Datamodels\Dto\Dto;
 
-    class RequestData extends Dto
+    class RequestData
     {
 
     }

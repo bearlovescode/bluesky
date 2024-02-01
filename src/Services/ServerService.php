@@ -2,8 +2,7 @@
     namespace Bearlovescode\Bluesky\Services;
 
     use Bearlovescode\Bluesky\Exceptions\ApiResponseException;
-    use Bearlovescode\Bluesky\Models\Auth\Credentials;
-    use Bearlovescode\Bluesky\Models\RequestData;
+    use Bearlovescode\Bluesky\Models\Dtos\Server\CreateSessionRequest;
     use Bearlovescode\Bluesky\Models\Session;
     use Bearlovescode\Datamodels\Auth\AccessToken;
     use Bearlovescode\Datamodels\Auth\RefreshToken;
@@ -17,7 +16,7 @@
         {
             $nsid = 'com.atproto.server.createSession';
 
-            $data = new RequestData([
+            $data = new CreateSessionRequest([
                 'identifier' => $identifier,
                 'password' => $appPassword
             ]);

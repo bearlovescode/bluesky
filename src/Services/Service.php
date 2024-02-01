@@ -3,6 +3,7 @@
 
 
     use Bearlovescode\Bluesky\Exceptions\BadQueryDataException;
+    use Bearlovescode\Bluesky\Models\RequestData;
     use Bearlovescode\Bluesky\Models\Service\Configuration;
     use Bearlovescode\Datamodels\Dto\Dto;
     use GuzzleHttp\Client;
