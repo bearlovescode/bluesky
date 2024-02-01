@@ -22,6 +22,11 @@
             ]);
         }
 
+        public function setAccessToken(mixed $token)
+        {
+            $this->config->token = $token;
+        }
+
 
 
         public function query(string $nsid = '', Dto $data = null)
@@ -51,6 +56,8 @@
             ];
 
             $headers = array_merge($defaultHeaders, []);
+            if (isset($config->accessToken))
+                $headers['Authorization'] = sprintf('Bearer: %s', $config->accessToken);
 
             return $this->client->post($nsid, [
                 'headers' => $headers,
