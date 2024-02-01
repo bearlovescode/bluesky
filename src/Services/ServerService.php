@@ -18,7 +18,7 @@
 
             $data = new CreateSessionRequest([
                 'identifier' => $identifier,
-                'password' => $appPassword
+                'appPassword' => $appPassword
             ]);
 
             $res = $this->handle($nsid, $data);
