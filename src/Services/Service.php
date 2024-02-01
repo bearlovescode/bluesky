@@ -8,6 +8,8 @@
     use Bearlovescode\Datamodels\Dto\Dto;
     use GuzzleHttp\Client;
     use GuzzleHttp\Psr7\Request;
+    use GuzzleHttp\Psr7\Uri;
+    use GuzzleHttp\Psr7\Utils;
     use Psr\Http\Message\ResponseInterface;
 
     abstract class Service
@@ -62,8 +64,17 @@
             if (isset($config->accessToken))
                 $headers['Authorization'] = sprintf('Bearer: %s', $config->accessToken);
 
-            $req = new Request('POST', $nsid, $headers, json_encode($data->toArray()));
+            $req = new Request('POST',
+                $this->buildXrpcUrl($nsid),
+                $headers,
+                Utils::streamFor(json_encode($data->toArray()))
+            );
 
             return $this->client->send($req);
+        }
+
+        private function buildXrpcUrl(string $nsid): Uri
+        {
+            return new Uri(sprintf('%s/%s', $this->config->baseUri, $nsid));
         }
     }
