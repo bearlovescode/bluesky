@@ -74,7 +74,7 @@
             ];
 
             if (!is_null($this->session))
-                $headers['Authorization'] = sprintf('Bearer: %s', $this->session->accessToken);
+                $headers['Authorization'] = sprintf('Bearer %s', $this->session->accessToken);
 
             return $headers;
 
