@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bearlovescode/datamodels.git",
-                "reference": "566ffc61f4999d48c85dbef9b145936dcc174cd6"
+                "reference": "08d90211ba231727ea7058fd2be5ed21715193c3"
             },
             "require": {
                 "php": "^8.1"
@@ -30,7 +30,7 @@
                     "email": "code@bearlovescode.com"
                 }
             ],
-            "time": "2024-01-14T04:50:09+00:00"
+            "time": "2024-02-01T21:31:56+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

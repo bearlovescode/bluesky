@@ -3,7 +3,6 @@
 
 
     use Bearlovescode\Bluesky\Exceptions\BadQueryDataException;
-    use Bearlovescode\Bluesky\Models\RequestData;
     use Bearlovescode\Bluesky\Models\Service\Configuration;
     use Bearlovescode\Bluesky\Models\Session;
     use Bearlovescode\Datamodels\Dto\Dto;
@@ -16,6 +15,7 @@
     abstract class Service
     {
         protected Client $client;
+        protected ?Session $session;
 
 
         public function __construct(
@@ -27,12 +27,10 @@
             ]);
         }
 
-        public function setAccessToken(mixed $token)
+        public function setSession(Session $session): void
         {
-            $this->config->token = $token;
+            $this->session = $session;
         }
-
-
 
         public function query(string $nsid = '', Dto $data = null)
         {
@@ -67,11 +65,6 @@
             return $this->client->send($req);
         }
 
-        public function setSession(Session $data): void
-        {
-            $this->config->session = $data;
-        }
-
         private function buildHeaders(): array
         {
             $headers = [
@@ -80,8 +73,8 @@
                 'Accept' => 'application/json'
             ];
 
-            if (isset($this->config->session))
-                $headers['Authorization'] = sprintf('Bearer: %s', $this->config->session->accessToken);
+            if (!is_null($this->session))
+                $headers['Authorization'] = sprintf('Bearer: %s', $this->session->accessToken);
 
             return $headers;
 
