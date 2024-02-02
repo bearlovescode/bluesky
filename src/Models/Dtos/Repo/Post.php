@@ -1,6 +1,7 @@
 <?php
     namespace Bearlovescode\Bluesky\Models\Dtos\Repo;
 
+    use Bearlovescode\Bluesky\Helpers\DateFormatHelper;
     use Bearlovescode\Datamodels\Dto\Dto;
 
     class Post extends Dto
@@ -13,7 +14,8 @@
             return array_merge(
                 parent::toArray(),
                 [
-                    '$type' => $this->type
+                    '$type' => $this->type,
+                    'createdAt' => $this->createdAt->format(DateFormatHelper::ZULU_TIME)
                 ]
             );
         }
