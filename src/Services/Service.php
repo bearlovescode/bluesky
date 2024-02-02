@@ -15,7 +15,7 @@
     abstract class Service
     {
         protected Client $client;
-        protected ?Session $session;
+        protected ?Session $session = null;
 
 
         public function __construct(
