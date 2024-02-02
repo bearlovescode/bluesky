@@ -8,14 +8,13 @@
     {
         public string $type = 'app.bsky.feed.post';
         public string $text;
-        public \DateTime $createdAt;
+        public string $createdAt;
         public function toArray(): array
         {
             return array_merge(
                 parent::toArray(),
                 [
-                    '$type' => $this->type,
-                    'createdAt' => $this->createdAt->format(DateFormatHelper::ZULU_TIME)
+                    '$type' => $this->type
                 ]
             );
         }
