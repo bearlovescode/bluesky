@@ -18,7 +18,7 @@
             $nsid = 'com.atproto.repo.createRecord';
 
             $dto = new CreateRecordRequest([
-                'repo' => $this->config->session->did,
+                'repo' => $this->session->did,
                 'record' => $post
             ]);
 
