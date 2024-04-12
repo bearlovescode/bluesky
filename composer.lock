@@ -4,20 +4,19 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b59e23afce4db801772ba3cc147c6d4",
+    "content-hash": "2f01b713a92a7667c83dbe1bee197dec",
     "packages": [
         {
             "name": "bearlovescode/datamodels",
-            "version": "dev-main",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bearlovescode/datamodels.git",
-                "reference": "08d90211ba231727ea7058fd2be5ed21715193c3"
+                "reference": "fcb8d1fd970fa89d516b5e765c3459e70df3c3ae"
             },
             "require": {
                 "php": "^8.1"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -30,7 +29,7 @@
                     "email": "code@bearlovescode.com"
                 }
             ],
-            "time": "2024-02-01T21:31:56+00:00"
+            "time": "2024-03-08T12:57:21+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -632,9 +631,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "bearlovescode/datamodels": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
