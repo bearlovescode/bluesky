@@ -77,10 +77,13 @@
                 'Accept' => 'application/json'
             ];
 
-            $bearerToken = ($refresh) ? $this->session->refreshToken : $this->session->accessToken;
+
 
             if (!is_null($this->session))
+            {
+                $bearerToken = ($refresh) ? $this->session->refreshToken : $this->session->accessToken;
                 $headers['Authorization'] = sprintf('Bearer %s', $bearerToken);
+            }
 
             return $headers;
 
