@@ -3,6 +3,8 @@
 
 
     use Bearlovescode\Bluesky\Exceptions\BadQueryDataException;
+    use Bearlovescode\Bluesky\Models\Dtos\Server\RefreshSessionRequest;
+    use Bearlovescode\Bluesky\Models\IRequestData;
     use Bearlovescode\Bluesky\Models\Service\Configuration;
     use Bearlovescode\Bluesky\Models\Session;
     use Bearlovescode\Datamodels\Dto\Dto;
@@ -49,23 +51,25 @@
          * @throws BadQueryDataException
          * @throws \GuzzleHttp\Exception\GuzzleException
          */
-        public function handle(string $nsid = '', Dto $data) : ResponseInterface
+        public function handle(string $nsid, IRequestData $data) : ResponseInterface
         {
             if (!$nsid || !isset($data))
                 throw new BadQueryDataException();
 
+            $refresh = ($data instanceof RefreshSessionRequest);
 
+            $body = ($refresh) ? null : Utils::streamFor(json_encode($data->toArray()));
 
             $req = new Request('POST',
                 $this->buildXrpcUrl($nsid),
-                $this->buildHeaders(),
-                Utils::streamFor(json_encode($data->toArray()))
+                $this->buildHeaders($refresh),
+
             );
 
             return $this->client->send($req);
         }
 
-        private function buildHeaders(): array
+        private function buildHeaders(bool $refresh = true): array
         {
             $headers = [
                 'User-Agent' => 'bearlovescode Bluesky Client/1.0',
@@ -73,8 +77,10 @@
                 'Accept' => 'application/json'
             ];
 
+            $bearerToken = ($refresh) ? $this->session->refreshToken : $this->session->accessToken;
+
             if (!is_null($this->session))
-                $headers['Authorization'] = sprintf('Bearer %s', $this->session->accessToken);
+                $headers['Authorization'] = sprintf('Bearer %s', $bearerToken);
 
             return $headers;
 

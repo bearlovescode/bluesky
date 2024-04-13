@@ -3,6 +3,7 @@
 
     use Bearlovescode\Bluesky\Exceptions\ApiResponseException;
     use Bearlovescode\Bluesky\Models\Dtos\Server\CreateSessionRequest;
+    use Bearlovescode\Bluesky\Models\Dtos\Server\RefreshSessionRequest;
     use Bearlovescode\Bluesky\Models\Session;
     use Bearlovescode\Datamodels\Auth\AccessToken;
     use Bearlovescode\Datamodels\Auth\RefreshToken;
@@ -37,8 +38,18 @@
 
         }
 
-        public function refreshSession()
+        public function refreshSession(): Session
         {
+            $nsid = 'com.atproto.server.refreshSession';
 
+            $req = new RefreshSessionRequest();
+            $res = $this->handle($nsid, $req);
+            $data = json_decode($res->getBody()->getContents());
+            return new Session([
+                'accessToken' => new AccessToken($data->accessJwt),
+                'refreshToken' => new RefreshToken($data->refreshJwt),
+                'did' => $data->did,
+                'handle' => $data->handle ?? null,
+            ]);
         }
     }
