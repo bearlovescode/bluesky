@@ -7,4 +7,5 @@
     {
         public string $identifier;
         public string $password;
+        public \DateTime $createdAt;
     }

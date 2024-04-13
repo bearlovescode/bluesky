@@ -32,7 +32,7 @@
                 'accessToken' => new AccessToken($data->accessJwt),
                 'refreshToken' => new RefreshToken($data->refreshJwt),
                 'did' => $data->did,
-                'handle' => $data->handle ?? null
+                'handle' => $data->handle ?? null,
             ]);
 
         }
