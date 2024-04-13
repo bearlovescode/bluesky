@@ -58,12 +58,10 @@
 
             $refresh = ($data instanceof RefreshSessionRequest);
 
-            $body = ($refresh) ? null : Utils::streamFor(json_encode($data->toArray()));
-
             $req = new Request('POST',
                 $this->buildXrpcUrl($nsid),
                 $this->buildHeaders($refresh),
-
+                Utils::streamFor(json_encode($data->toArray()))
             );
 
             return $this->client->send($req);
